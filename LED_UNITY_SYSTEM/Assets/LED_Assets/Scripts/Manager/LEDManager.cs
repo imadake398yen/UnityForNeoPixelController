@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using LitJson;
 
-
 [System.SerializableAttribute]
 public struct MatrixSettings { public int col, row; }
 
@@ -17,14 +16,13 @@ public class RGB {
 	}
 }
 
-
 public class LEDManager 
 : SingletonMonoBehaviour<LEDManager> {
 
 	public LEDString[] ledStrings;
+	public Const.LEDPattern ledPattern;
 	public MatrixSettings settings;
 	public GameObject ledPrefab;
-
 
 	private void Start () {
 		
