@@ -47,6 +47,7 @@ public class LEDManager
 
 				GameObject obj = (GameObject)Instantiate(
 					ledPrefab, spawnPos, Quaternion.identity);
+				obj.transform.SetParent(this.transform);
 
 				obj.GetComponent<LEDController>().rgb 
 					= ledStrings[i].leds[j];
