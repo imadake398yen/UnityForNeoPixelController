@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using LitJson;
+using System.IO.Ports;
 
 [System.SerializableAttribute]
 public struct MatrixSettings { public int col, row; }
@@ -23,9 +24,12 @@ public class LEDManager
 	public Const.LEDPattern ledPattern;
 	public MatrixSettings settings;
 	public GameObject ledPrefab;
+	public SerialPort stream = new SerialPort("/dev/cu.usbmodem1411",115200);
 
 	private void Start () {
-		
+
+		stream.Open();
+
 		List<LEDString> strs = new List<LEDString>();
 		for (int i=0; i<settings.col; i++) {
 			strs.Add( new LEDString() );
@@ -58,6 +62,7 @@ public class LEDManager
 	private void Update () {
 		if (Input.GetKeyDown("space")) {
 			string[] json = GetLEDStingJson();
+			stream.Write(json[0]);
 			print(json[0]);
 		}
 	}
