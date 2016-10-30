@@ -14,14 +14,19 @@ int current = 0;        //名前迷った。ごめん。
 int pattern2colorStrength = 5;
 int pattern2Speed = 3;
 
-int pattern = 2;
+int pattern = 3;
+bool isReady = false;
 
 class LED {
   public: int ledNum;
   private:int darkColor = 0;
-  public: int r, g, b;
+  private:int redToBrue = 7;
+  public: int r, g, b, tr, tg, tb;
   public: void SetColor (int red, int green, int blue){
     r = red; g = green; b = blue;
+    tr = red / redToBrue;
+    tg = green / redToBrue;
+    tb = blue / redToBrue;
     updateLED();
   }
   public: void ToDark () {
@@ -34,6 +39,12 @@ class LED {
     r += vr;
     g += vg;
     b += vb;
+    updateLED();
+  }
+  public: void RedToBlue () {
+    r -= tr;
+    g -= tg;
+    b -= tb;
     updateLED();
   }
   public: void updateLED () {
@@ -72,6 +83,19 @@ void loop() {
       led[i].SetColor(r,g,b);
     }
     delay(pattern2Speed);
+  }
+  else if (pattern == 3) {
+    if ( current < NUMPIXELS-1 ) {
+      for (int i=0; i<NUMPIXELS; i++) {
+        led[i].RedToBlue();
+      }
+      led[current].SetColor( 255, 0, 150 );
+      delay( moveDelay );
+      current += 1;
+    } else {
+      delay( pulseDelay );
+      current = 0;
+    }
   }
 }
 
