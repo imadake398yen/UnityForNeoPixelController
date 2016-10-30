@@ -4,11 +4,11 @@
 #define PIN        6
 #define NUMPIXELS  50
 
-Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN1, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
-int moveDelay = 20;     //LEDの色の流れる速度
-int pulseDelay = 100;   //LEDが流れる周期
-int colorSpeed = 10;    //LED1個単位の黒に変わる速度
+int moveDelay = 0;     //LEDの色の流れる速度
+int pulseDelay = 30;   //LEDが流れる周期
+int colorSpeed = 5;    //LED1個単位の黒に変わる速度
 int current = 0;        //名前迷った。ごめん。
 
 class LED {
