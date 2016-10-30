@@ -11,6 +11,11 @@ int pulseDelay = 30;   //LEDが流れる周期
 int colorSpeed = 5;    //LED1個単位の黒に変わる速度
 int current = 0;        //名前迷った。ごめん。
 
+int pattern2colorStrength = 5;
+int pattern2Speed = 3;
+
+int pattern = 2;
+
 class LED {
   public: int ledNum;
   private:int darkColor = 0;
@@ -45,17 +50,28 @@ void setup() {
   }
 }
 
-void loop() {
-  if ( current < NUMPIXELS-1 ) {
-    for (int i=0; i<NUMPIXELS; i++) {
-      led[i].ToDark();
+void loop() { 
+  if (pattern == 1) {
+    if ( current < NUMPIXELS-1 ) {
+      for (int i=0; i<NUMPIXELS; i++) {
+        led[i].ToDark();
+      }
+      led[current].SetColor( 255, 0, 150 );
+      delay( moveDelay );
+      current += 1;
+    } else {
+      delay( pulseDelay );
+      current = 0;
     }
-    led[current].SetColor( 255, 0, 150 );
-    delay( moveDelay );
-    current += 1;
-  } else {
-    delay( pulseDelay );
-    current = 0;
+  }
+  else if (pattern == 2) {
+    for (int i=0; i<NUMPIXELS; i++) {
+      int r = random(0,255) / pattern2colorStrength;
+      int g = random(0,255) / pattern2colorStrength;
+      int b = random(0,255) / pattern2colorStrength;
+      led[i].SetColor(r,g,b);
+    }
+    delay(pattern2Speed);
   }
 }
 
